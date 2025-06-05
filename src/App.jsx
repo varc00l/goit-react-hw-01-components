@@ -1,6 +1,7 @@
 import { Profiler, useState } from 'react'
 import './App.css'
 import data from './data.json'
+import friends from './friends.json'
 
 function App() {
   function Statistics({ title, stats }) {
@@ -28,9 +29,23 @@ function App() {
       </section>
     );
   }
+  function FriendListItem({avatar, name, isOnline}) {
+    return (
+      <ul>
+        {friends.map(({avatar, name, isOnline}) => (
+            <li className="friends-card">
+              <span className={isOnline ? 'status online' : 'status offline'}>{isOnline}</span>
+              <img className="friends-avatar" src={avatar} alt="User avatar" width="48" height="48" />
+              <p className="friends-name">{name}</p>
+            </li>
+        ))}
+      </ul>
+    );
+}
   return (
     <div>
       <Statistics title="Upload stats" stats={data} />
+      <FriendListItem friends={friends} />,
     </div>
   )
 }
